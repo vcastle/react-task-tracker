@@ -9,19 +9,19 @@ function App() {
     {
       id: 1,
       text: "Skull Crushers",
-      day: "3 x 15",
+      reps: "3 x 15",
       reminder: true,
     },
     {
       id: 2,
       text: "BB Bicep Curls",
-      day: "4 x 12",
+      reps: "4 x 12",
       reminder: true,
     },
     {
       id: 3,
       text: "Wide Grip Lat Pulldowns",
-      day: "3 x 15",
+      reps: "3 x 15",
       reminder: false,
     },
   ]);
@@ -44,7 +44,6 @@ function App() {
     setTasks(tasks
       .map((task) => task.id === id ? 
         { ...task, reminder: !task.reminder} : task))
-        console.log('tasks ', tasks);
   }
 
   return (
