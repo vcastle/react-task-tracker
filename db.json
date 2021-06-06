@@ -18,7 +18,8 @@
       "text": "Bench Press",
       "reps": "4 x 15",
       "reminder": true,
-      "id": 4
+      "id": 4,
+      "isDone": false
     }
   ]
 }
