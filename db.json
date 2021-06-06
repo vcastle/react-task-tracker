@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "text": "Skull Crushers",
+      "reps": "3 x 15",
+      "reminder": true,
+      "isDone": false
+    },
+    {
+      "id": 3,
+      "text": "Wide Grip Lat Pulldowns",
+      "reps": "3 x 15",
+      "reminder": false,
+      "isDone": false
+    },
+    {
+      "text": "Bench Press",
+      "reps": "4 x 15",
+      "reminder": true,
+      "id": 4
+    }
+  ]
+}
