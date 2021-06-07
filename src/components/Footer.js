@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer>
             <p>Copyright &copy; {new Date().getFullYear()} - Valeria Castillo</p>
-            <Link to="/about">About</Link>
+            <Link to="/react-task-tracker/">About</Link>
         </footer>
     )
 }
