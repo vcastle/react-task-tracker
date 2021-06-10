@@ -10,7 +10,7 @@ const Header = ({title, onAdd, showAdd }) => {
         <header className='header'>
             <h1>{title}</h1>
 
-            {location.pathname === '/react-task-tracker' &&
+            {location.pathname === '/react-task-tracker/' &&
                <Button 
                 color={showAdd ? 'crimson' : '#009957'} 
                 text={showAdd ? 'Close' : 'Add'} 
