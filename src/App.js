@@ -1,3 +1,5 @@
+import db from './firebase.config';
+
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -15,7 +17,10 @@ function App() {
   useEffect(() => {
    const getTasks = async () => {
      const tasksFromServer = await fetchTasks();
-     setTasks(tasksFromServer);
+
+     tasksFromServer.docs.forEach(item => {
+      setTasks(t => ([...t, item.data()]));
+     })
    }
 
     getTasks();
@@ -24,62 +29,72 @@ function App() {
   /** Server Calls */
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:5000/tasks');
-    const data = await res.json();
-
+    const res = db.collection('tasks');
+    const data = await res.get();
+  
     return data;
   };
 
-    // Fetch Task
-    const fetchTask = async (id) => {
-      const res = await fetch(`http://localhost:5000/tasks/${id}`);
-      const data = await res.json();
-  
-      return data;
-    };
-
   // Add Task
-  const addTask = async (task) => {
-  const res = await fetch(`http://localhost:5000/tasks`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(task)
-    });
+  const addTask = (task) => {
+	db.collection('tasks')
+	.add(task)
+	.then(() => {
+		console.log('Task Added Successfully');
+	})
+	.catch((error) => {
+		console.error('Error adding task: ', error);
+	});
 
-    const data = await res.json();
-
-    setTasks([...tasks, data]);
+	// update tasks state
+	setTasks([...tasks, task]);
   }
 
   // Delete Task
-  const deleteTask = async (id) => {
-    // make delete request
-    await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'DELETE'
-    });
+  const deleteTask = (task) => {
+    // get id of task
+    db.collection('tasks').get().then((x) => {
+      x.docs.forEach(item => {
+       const data = item.data();
+       const id = item.id;
 
-    setTasks(tasks.filter((task) => task.id !== id))
+        if (id && data.text === task.text) {
+            // make delete request
+    		db.collection('tasks')
+    		  .doc(id)
+			  .delete()
+			  .then(() => {
+       			console.log('Task deleted successfully!');
+     		}).catch((error) => {
+       			console.error('Error removing task: ', error);
+    		});
+
+        	//update state of tasks
+			setTasks(tasks.filter((task) => task.text !== data.text))
+        	}	 
+    	})
+  	})
   }
 
   // Toggle Reminder
-  const toggleReminder = async (id) => {
-    const taskToToggle = await fetchTask(id);
-    const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder};
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(updatedTask)
-    });
+  const toggleReminder = (task) => {
+    db.collection('tasks').get().then((x) => {
+        x.docs.forEach(item => {
+         const data = item.data();
+         const id = item.id;
 
-    const data = await res.json();
+          if (id && data.text === task.text) {
+            const currentTask = data;
 
-    setTasks(tasks
-      .map((task) => task.id === id ? 
-        { ...task, reminder: data.reminder} : task))
+            //update the task in firestore
+            db.collection('tasks').doc(id).update({reminder: !currentTask.reminder});
+          
+            //update state of tasks
+            setTasks(tasks
+            	.map(task => task.text === data.text ? { ...task, reminder: !currentTask.reminder } : task))
+          } 
+      })
+    }).catch((error) => console.log("Error getting task:", error));
   }
   /** End Server Calls */
 
