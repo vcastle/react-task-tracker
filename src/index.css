@@ -63,8 +63,8 @@ body {
   cursor: pointer;
 }
 
-.task.reminder {
-  border-left: 5px solid #009957;
+.task.isComplete {
+  border-left: 6px solid #009957;
 }
 
 .task h3 {
@@ -91,6 +91,7 @@ body {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  margin-left: 0;
 }
 
 .form-control-check {
