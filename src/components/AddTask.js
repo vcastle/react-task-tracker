@@ -3,7 +3,7 @@ import { useState } from 'react';
 const AddTask = ({ onAdd }) => {
     const [text, setText] = useState('');
     const [reps, setReps] = useState('');
-    const [reminder, setReminder] = useState(false);
+    const [isComplete, setComplete] = useState(false);
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -12,11 +12,11 @@ const AddTask = ({ onAdd }) => {
             return;
         }
 
-        onAdd({ text, reps, reminder});
+        onAdd({ text, reps, isComplete});
 
         setText('');
         setReps('');
-        setReminder(false);
+        setComplete(false);
     }
     return (
         <form className='add-form' onSubmit={onSubmit}>
@@ -24,25 +24,17 @@ const AddTask = ({ onAdd }) => {
                 <label>Task</label>
                 <input 
                     type='text' 
-                    placeholder='Add Task' 
+                    placeholder='Sumo Deadlifts' 
                     value={text}
                     onChange={(e) => setText(e.target.value)}/>
             </div>
             <div className='form-control'>
-                <label>Reps & Sets (Ex: 3x15)</label>
+                <label>Reps & Sets</label>
                 <input 
                     type='text' 
-                    placeholder='Add Reps' 
+                    placeholder='3 x 15' 
                     value={reps}
                     onChange={(e) => setReps(e.target.value)}/>
-            </div>
-            <div className='form-control form-control-check'>
-                <label>Set Reminder</label>
-                <input 
-                    type='checkbox'
-                    checked={reminder} 
-                    value={reminder}
-                    onChange={(e) => setReminder(e.currentTarget.checked)}/>
             </div>
 
             <input 

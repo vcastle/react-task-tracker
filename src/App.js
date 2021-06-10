@@ -29,7 +29,7 @@ function App() {
   /** Server Calls */
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = db.collection('tasks');
+    const res = db.collection('tasks').orderBy('isComplete', 'asc');
     const data = await res.get();
   
     return data;
@@ -87,11 +87,11 @@ function App() {
             const currentTask = data;
 
             //update the task in firestore
-            db.collection('tasks').doc(id).update({reminder: !currentTask.reminder});
+            db.collection('tasks').doc(id).update({isComplete: !currentTask.isComplete});
           
             //update state of tasks
             setTasks(tasks
-            	.map(task => task.text === data.text ? { ...task, reminder: !currentTask.reminder } : task))
+            	.map(task => task.text === data.text ? { ...task, isComplete: !currentTask.isComplete } : task))
           } 
       })
     }).catch((error) => console.log("Error getting task:", error));
