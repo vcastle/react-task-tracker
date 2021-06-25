@@ -4,7 +4,9 @@ const Tasks = ({tasks, onDelete, onToggle}) => {
    
   return (
     <>
-        {tasks.map((task, index) => (
+    <h1 style={{color: 'grey', fontSize: '14px', textAlign:'center'}}>Double tap to toggle completed task</h1>
+    <ul>
+         {tasks.map((task, index) => (
             <Task 
                 key={index} 
                 task={task} 
@@ -12,6 +14,7 @@ const Tasks = ({tasks, onDelete, onToggle}) => {
                 onToggle={onToggle}
             />
         ))}
+    </ul>
     </>
   );
 };
