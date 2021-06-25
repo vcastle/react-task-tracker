@@ -11,6 +11,10 @@ body {
   background-color: #22577a;
 }
 
+.hide {
+  display: none;
+}
+
 .container {
   max-width: 500px;
   margin: 30px auto;
@@ -61,6 +65,7 @@ body {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  list-style: none;
 }
 
 .task.isComplete {
@@ -71,6 +76,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.task__actions {
+  display: flex;
+  flex-direction: row;
 }
 
 .add-form {

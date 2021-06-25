@@ -1,6 +1,6 @@
 # PROJECT
 
-Exercise Tracker - CRUD Todo list app
+Task Tracker - CRUD Todo list app
 
 # Description
 

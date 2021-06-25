@@ -21,7 +21,7 @@ const Header = ({title, onAdd, showAdd }) => {
 }
 
 Header.defaultProps = {
-    title: 'Exercise Tasks',
+    title: 'Task List',
   }
   
   Header.propTypes = {
